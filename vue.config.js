@@ -1,3 +1,5 @@
+const CompressionPlugin = require('compression-webpack-plugin');
+
 module.exports = {
   css: {
     loaderOptions: {
@@ -82,6 +84,14 @@ module.exports = {
           './AppNavigationMixin$'
         ] = `@/env/components/AppNavigation/${envName}.js`;
       }
+    }
+
+    if (process.env.NODE_ENV === 'production') {
+      config.plugins.push(
+        new CompressionPlugin({
+          deleteOriginalAssets: true,
+        })
+      );
     }
   },
   pluginOptions: {
